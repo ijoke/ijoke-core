@@ -4,8 +4,11 @@ module.exports = function(app) {
   var Schema = require('mongoose').Schema;
 
   var joke =  Schema({
-    user_joke: { type: String},
-    description: {type: String}
+    owner: { type: String},
+    description: {type: String},
+    title: {type: String},
+    date_creation: {type: Date},
+    likes: {type: Number}
   });
 
 
