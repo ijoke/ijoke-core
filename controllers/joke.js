@@ -9,9 +9,12 @@ module.exports = function(app) {
         newJoke.save(function(err, jokeSaved){
 		if(err){
 			console.log("Error saving joke - " + err);
-			res.stats(500);
+			res.status(500);
 		}
+		console.log('post joke', jokeSaved);
 		res.status(201);
+		//res.setHeader('Location', '/joke/' + jokeSaved._id);
+		res.location('/joke/' + jokeSaved._id);
 		res.send(jokeSaved);	
 	});
     },
