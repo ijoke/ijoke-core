@@ -2,6 +2,16 @@ module.exports = function(app) {
 
   var Joke = app.models.joke;
 
+  app.param('id', function(req, res, next, id) {
+    console.log('id req middel', id);
+      Joke.findById(id, function(err, joke) {
+        if (err) console.log("Erro ao buscar joke", err);
+        req.joke = joke;
+        next();
+      });
+  });
+
+
   var JokeController = {
     insert : function(req, res) {
 	console.log(req.body);
@@ -13,7 +23,6 @@ module.exports = function(app) {
 		}
 		console.log('post joke', jokeSaved);
 		res.status(201);
-		//res.setHeader('Location', '/joke/' + jokeSaved._id);
 		res.location('/joke/' + jokeSaved._id);
 		res.send(jokeSaved);	
 	});
@@ -24,11 +33,18 @@ module.exports = function(app) {
 		res.send(jokeFind);
 	});	
     },
+    getById : function(req, res){
+    	res.status(200);
+	res.send(req.joke);
+    },
     put : function(req, res){
 	console.log(req.body);
-	//Joke.insert(req.body);
-	res.status(200);
-        res.send('OPAAA');  
+	var joke = req.joke;
+	joke.likes = joke.likes + 1;
+	joke.update(function(err, updated){			
+		res.status(200);
+        	res.send(updated);  
+	});
     }
   }
   return JokeController;
