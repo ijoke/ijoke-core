@@ -12,6 +12,7 @@ module.exports = function() {
 
   if(!single_connection) {
     single_connection = mongoose.connect("mongodb://joao:joao@ds031957.mongolab.com:31957/dbteste");
+    //single_connection = mongoose.connect("mongodb://127.0.0.1/test");
     //single_connection = mongoose.connect(url);
   }
 

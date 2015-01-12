@@ -13,6 +13,7 @@ var app = express();
 
 // Configuration
 
+app.use(bodyParser.json());
 /*
   app.configure(function(){
   app.set('views', __dirname + '/views');
